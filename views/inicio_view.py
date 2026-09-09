@@ -8,6 +8,7 @@ def show_inicio():
     controller = UsuarioController()
 
     st.title("🏠 Início")
+    st.title("Esse texto aqui, quem fez foi o Professor")
 
     st.write(
         "Exemplo de aplicação Streamlit utilizando arquitetura MVC."
