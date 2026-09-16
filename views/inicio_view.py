@@ -9,6 +9,7 @@ def show_inicio():
 
     st.title("🏠 Início")
     st.title("Esse texto aqui, quem fez foi o Professor")
+    st.title("Esse é o código da Ana")
 
     st.write(
         "Exemplo de aplicação Streamlit utilizando arquitetura MVC."
