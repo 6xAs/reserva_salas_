@@ -21,7 +21,6 @@ class UsuarioModel:
 
         documento = self.collection.document()
         documento.set(dados)
-
         return documento.id
 
     def listar_todos(self):
@@ -46,7 +45,6 @@ class UsuarioModel:
             return None
 
         dados = documento.to_dict()
-
         return {
             "id": documento.id,
             "nome": dados.get("nome", ""),
@@ -63,12 +61,24 @@ class UsuarioModel:
 
         return usuarios[
             usuarios["nome"].str.contains(
-                nome,
-                case=False,
-                na=False,
-                regex=False,
+                nome, case=False, na=False, regex=False
             )
         ]
+
+    def buscar_por_email(self, email):
+        consulta = self.collection.where("email", "==", email).limit(1).stream()
+
+        for documento in consulta:
+            dados = documento.to_dict()
+            return {
+                "id": documento.id,
+                "nome": dados.get("nome", ""),
+                "email": dados.get("email", ""),
+                "perfil": dados.get("perfil", ""),
+                "status": dados.get("status", ""),
+            }
+
+        return None
 
     def atualizar(self, usuario_id, nome, email, perfil, status):
         referencia = self.collection.document(str(usuario_id))
@@ -82,7 +92,6 @@ class UsuarioModel:
             "perfil": perfil,
             "status": status,
         })
-
         return True
 
     def excluir(self, usuario_id):
